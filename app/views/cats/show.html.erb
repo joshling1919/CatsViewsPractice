@@ -23,6 +23,21 @@
     <p>
       About me: <%= @cat.description %>
     </p>
+    <table>
+      <h2>Rental requests</h2>
+      <tr>
+        <th> Start date </th>
+        <th> End date </th>
+        <th> Status </th>
+      </tr>
+    <% @cat.cat_rental_requests.order(:start_date).each do |request| %>
+      <tr>
+        <td> <%= request.start_date %> </td>
+        <td> <%= request.end_date %> </td>
+        <td> <%= request.status  %> </td>
+      </tr>
+      <% end %>
+    </table>
     <h3><%= link_to "index", cats_url %></h3>
   </body>
 </html>
