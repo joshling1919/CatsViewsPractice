@@ -16,10 +16,12 @@ class Cat < ActiveRecord::Base
   validates :birth_date, :color, :name, presence: true
   validates :sex, length: { in: 0..1 }, inclusion: { in: ["M", "F"],
     message: "Please pick either M or F" }
-  validates :color, inclusion: { in: ["Brown", "Black", "White", "Spotted"],
+  validates :color, inclusion: { in: CAT_COLORS,
     message: "Please pick a valid color" }
 
   CAT_COLORS = ["Brown", "Black", "White", "Spotted"]
+
+  has_many :cat_rental_requests
 
   def age
     now = Time.now.utc.to_date
