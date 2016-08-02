@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>edit view</title>
+  </head>
+  <body>
+    <% action_url = cat.persisted? ? cat_url(cat) : cats_url %>
+    <form action= <%= action_url %> method="post">
+      <% if cat.persisted? %>
+        <input type="hidden" name="_method" value="patch">
+      <% end %>
+      <label for="name">Cat's Name:</label>
+      <input id="name" type="text" name="cat[name]" value= <%= cat.name %>>
+
+      <label for="sex">Cat's Sex:</label>
+      F <input type="radio" name="cat[sex]" value="F" <%= cat.sex == 'F' ? "checked" : '' %>>
+      M <input type="radio" name="cat[sex]" value="M" <%= cat.sex == 'M' ? "checked" : '' %>>
+
+      <label for="color">Cat's color</label>
+      <select name="cat[color]" id="color">
+        <option></option>
+        <% Cat::CAT_COLORS.each do |color| %>
+          <option value= <%= color %>
+          <%= cat.color == color ? "selected" : "" %>> <%= color %>
+          </option>
+        <% end %>
+      </select>
+
+      <label for="birth date">Cat's birth date</label>
+      <input type="date" name= "cat[birth_date]" value= <%= cat.birth_date %>>
+      </br>
+      <label for="description">Cat's description</label>
+      <textarea id="description" name="cat[description]" rows="8" cols="40"><%= cat.description %></textarea>
+
+      <input type="submit" value="Edit Cat">
+    </form>
+
+  </body>
+</html>

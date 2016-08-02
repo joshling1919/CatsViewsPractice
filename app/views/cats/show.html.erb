@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>An amazing cat</title>
+  </head>
+  <body>
+    <h1><%= @cat.name %></h1>
+    <table>
+      <tr>
+        <th> Birth Date </th>
+        <th> Age </th>
+        <th> Sex </th>
+        <th> Color </th>
+      </tr>
+      <tr>
+        <td> <%= @cat.birth_date  %> </td>
+        <td> <%= @cat.age  %> </td>
+        <td> <%= @cat.sex  %> </td>
+        <td> <%= @cat.color  %> </td>
+      </tr>
+    </table>
+    <p>
+      About me: <%= @cat.description %>
+    </p>
+    <h3><%= link_to "index", cats_url %></h3>
+  </body>
+</html>
