@@ -36,4 +36,33 @@ class CatRentalRequest < ActiveRecord::Base
     end
   end
 
+  def overlapping_pending_requests
+    conflicts = []
+    all_approved_requests = CatRentalRequest.where("cat_id = ? AND status = ?", self.cat_id, "PENDING")
+    all_approved_requests.each do |request|
+      if self.overlaps?(request)
+        conflicts << request
+      end
+    end
+    conflicts
+  end
+
+  def approve!
+    CatRentalRequest.transaction do
+      self.status = "APPROVED"
+      self.save
+      overlapping_pending_requests.each do |request|
+        request.deny!
+      end
+    end
+  end
+
+  def deny!
+    self.status = "DENIED"
+    self.save
+  end
+
+  def pending?
+    self.status == 'PENDING'
+  end
 end
